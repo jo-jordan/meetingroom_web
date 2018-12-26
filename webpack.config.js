@@ -20,7 +20,7 @@ module.exports = {
 
     // output direction
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
         filename: "js/[name].js"
     },
