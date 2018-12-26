@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "element-ui": "^2.4.11",
-    "vue": "^2.5.11"
+    "vue": "^2.5.11",
+    "vue-router": "^3.0.2"
   },
   "browserslist": [
     "> 1%",
