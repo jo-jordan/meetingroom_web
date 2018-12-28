@@ -49,23 +49,6 @@
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >{{ $t('login.logIn') }}</el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span>{{ $t('login.username') }} : admin</span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">{{ $t('login.username') }} : editor</span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-        </div>
-
-        <el-button
-          class="thirdparty-button"
-          type="primary"
-          @click="showDialog=true"
-        >{{ $t('login.thirdparty') }}</el-button>
-      </div>
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
@@ -80,9 +63,11 @@
 
 <script>
 import { isValidUsername } from '@/utils/validate'
+import LangSelect from '@/components/LangSelect'
+
 export default {
   name: 'Login',
-  components: { LangSelect, SocialSign },
+  components: { LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
@@ -147,7 +132,8 @@ export default {
             .dispatch('LoginByUsername', this.loginForm)
             .then(() => {
               this.loading = false
-              this.$router.push({ path: this.redirect || '/' })
+              console.log('error submit!!')
+              //this.$router.push({ path: this.redirect || '/' })
             })
             .catch(() => {
               this.loading = false
@@ -181,7 +167,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-$bg: #163d69;
+$bg: #000000;
 $light_gray: #eee;
 $cursor: #fff;
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
