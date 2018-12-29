@@ -70,7 +70,7 @@ export default {
   components: { LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
+      if (!isValidUsername(value)) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
@@ -132,8 +132,8 @@ export default {
             .dispatch('LoginByUsername', this.loginForm)
             .then(() => {
               this.loading = false
-              console.log('error submit!!')
-              //this.$router.push({ path: this.redirect || '/' })
+              console.log('LoginByUsername then!!')
+              this.$router.push({ path: this.redirect || '/' })
             })
             .catch(() => {
               this.loading = false

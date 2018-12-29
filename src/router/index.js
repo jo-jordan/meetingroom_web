@@ -10,7 +10,8 @@ export const constantRouterMap = [
   {
     path: '/redirect',
     component: Layout,
-    hidden: true,
+    // 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
+    hidden: true, // (默认 false)
     children: [
       {
         path: '/redirect/:path*',
@@ -31,6 +32,7 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
+    // 当设置 noredirect 的时候该路由在面包屑导航中不可被点击
     redirect: 'dashboard',
     children: [
       {
