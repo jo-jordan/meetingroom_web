@@ -7,6 +7,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { isExternal } from '@/utils'
 
 export default {

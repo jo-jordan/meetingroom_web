@@ -11,6 +11,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { Navbar, Sidebar, AppMain, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 

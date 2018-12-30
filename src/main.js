@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue'
 
 import Cookies from 'js-cookie'
