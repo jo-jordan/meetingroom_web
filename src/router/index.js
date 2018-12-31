@@ -67,7 +67,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'overview',
-        component: () => import('@/views/table/complexTable'),
+        component: () => import('@/views/booking/index'),
         name: 'Overview',
         meta: { title: 'Overview' }
       },

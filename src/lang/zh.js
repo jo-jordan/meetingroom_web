@@ -3,9 +3,11 @@ export default {
     route: {
         dashboard: '首页',
         i18n: '国际化',
-        meetingroom: '会议室',
-        overview: '预览',
-        book: '预订'
+        MeetingRoom: '会议室',
+        Overview: '预览',
+        Book: '预订',
+        User: '用户',
+        Manage: '管理'
     },
     navbar: {
         logOut: '退出登录',
