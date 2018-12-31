@@ -53,6 +53,31 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-
+  {
+    path: '/meetingroom',
+    component: Layout,
+    hidden: false, // (默认 false)
+    name: 'MeetingRoom',
+    alwaysShow: true, 
+    redirect: '/meetingroom/overview',
+    meta: {
+      title: 'MeetingRoom',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: 'overview',
+        component: () => import('@/views/table/complexTable'),
+        name: 'Overview',
+        meta: { title: 'Overview' }
+      },
+      {
+        path: 'book',
+        component: () => import('@/views/table/complexTable'),
+        name: 'Book',
+        meta: { title: 'Book' }
+      },
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
