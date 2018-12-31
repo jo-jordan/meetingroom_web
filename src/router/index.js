@@ -72,6 +72,26 @@ export const asyncRouterMap = [
         meta: { title: 'Overview' }
       },
       {
+        path: 'manage',
+        component: () => import('@/views/table/complexTable'),
+        name: 'Manage',
+        meta: { title: 'Manage', roles: ['admin'] }
+      },
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    hidden: false, // (默认 false)
+    name: 'User',
+    alwaysShow: true,
+    redirect: '/user/book',
+    meta: {
+      title: 'User',
+      icon: 'table'
+    },
+    children: [
+      {
         path: 'book',
         component: () => import('@/views/table/complexTable'),
         name: 'Book',
