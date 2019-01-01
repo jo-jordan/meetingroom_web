@@ -6,7 +6,11 @@ const count = 100
 for (let i = 0; i < count; i++) {
   List.push(
     Mock.mock({
-      id: '@increment'
+      id: '@increment',
+      name: '@title(5, 10)',
+      code: Mock.Random.string(24),
+      status: '@integer(0, 2)',
+      createTime: '@datetime'
     })
   )
 }
