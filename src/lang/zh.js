@@ -56,7 +56,12 @@ export default {
         confirm: '确 定',
         name: '会议室',
         code: '编码',
-        createTime: '创建时间'
+        createTime: '创建时间',
+        book: '预订',
+        bookInfo: '查看',
+        available: '可用',
+        reserved: '占用',
+        trimming: '修整',
     },
     navbar: {
         logOut: '退出登录',
