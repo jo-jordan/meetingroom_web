@@ -53,7 +53,10 @@ export default {
         draft: '草稿',
         delete: '删除',
         cancel: '取 消',
-        confirm: '确 定'
+        confirm: '确 定',
+        name: '会议室',
+        code: '编码',
+        createTime: '创建时间'
     },
     navbar: {
         logOut: '退出登录',
