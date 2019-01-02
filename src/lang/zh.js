@@ -62,6 +62,10 @@ export default {
         available: '可用',
         reserved: '占用',
         trimming: '修整',
+        bookTime: '预定时间',
+        to: '至',
+        endTime:'结束时间',
+        startTime: '开始时间'
     },
     navbar: {
         logOut: '退出登录',

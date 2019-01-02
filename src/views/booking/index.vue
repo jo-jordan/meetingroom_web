@@ -31,25 +31,61 @@
         </el-table-column>
         <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.status==0" size="mini" type="success" @click="handleModifyStatus(scope.row,'published')">{{ $t('table.book') }}</el-button>
-          <el-button v-if="scope.row.status!=0" size="mini" type="primary" @click="handleModifyStatus(scope.row,'published')">{{ $t('table.bookInfo') }}</el-button>
+          <el-button v-if="scope.row.status==0" size="mini" type="success" @click="handleBook(scope.row)">{{ $t('table.book') }}</el-button>
+          <el-button v-if="scope.row.status!=0" size="mini" type="primary" @click="handleInfo(scope.row)">{{ $t('table.bookInfo') }}</el-button>
         </template>
       </el-table-column>
       </el-table>
       <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
     </div>
+
+    <!-- dialog -->
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 200px; margin-left:50px;">
+        <el-form-item :label="$t('table.bookTime')" prop="bookTime">
+          <el-date-picker v-model="temp.bookTime" type="datetimerange" v-bind:range-separator="$t('table.to')" v-bind:start-placeholder="$t('table.startTime')" v-bind:end-placeholder="$t('table.endTime')" placeholder="Please pick a date"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
+        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('table.confirm') }}</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getInfo } from '@/api/meetingroom'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
   name: 'MeetingRoom',
+  components: { Pagination },
   data() {
     return {
         tableKey: 0,
-        list: null
+        list: null,
+        temp: {
+          id: undefined,
+          importance: 1,
+          remark: '',
+          bookTime: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+          title: '',
+          type: '',
+          status: 'published'
+        },
+        dialogFormVisible: false,
+        dialogStatus: '',
+        textMap: {
+          book: 'Book',
+          info: 'Info'
+        },
+        rules: {
+          type: [{ required: true, message: 'type is required', trigger: 'change' }],
+          timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
+          title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+        },
+        downloadLoading: false
       }
   },
   filters: {
@@ -92,9 +128,28 @@ export default {
     getStatus(status){
       return status === 0? 'available' : status === 1 ? 'reserved' : 'trimming'
     },
-    handleBook() {
+    resetTemp() {
+      this.temp = {
+        id: undefined,
+        importance: 1,
+        remark: '',
+        timestamp: new Date(),
+        title: '',
+        status: 'published',
+        type: ''
+      }
+    },
+    handleBook({row}) {
       this.resetTemp()
-      this.dialogStatus = 'create'
+      this.dialogStatus = 'book'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    handleInfo({row}) {
+      this.resetTemp()
+      this.dialogStatus = 'info'
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
