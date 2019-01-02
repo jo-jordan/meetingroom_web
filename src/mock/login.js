@@ -27,24 +27,6 @@ const userMap = {
             component: 'bookTable',
             name: 'Manage',
             meta: { title: 'Manage' }
-          },
-          {
-            path: 'manage',
-            component: 'bookTable',
-            name: 'Manage',
-            meta: { title: 'Manage' }
-          },
-          {
-            path: 'manage',
-            component: 'bookTable',
-            name: 'Manage',
-            meta: { title: 'Manage' }
-          },
-          {
-            path: 'manage',
-            component: 'bookTable',
-            name: 'Manage',
-            meta: { title: 'Manage' }
           }
         ]
       },
