@@ -58,6 +58,7 @@ export default {
         code: '编码',
         createTime: '创建时间',
         book: '预订',
+        Book: '预订',
         bookInfo: '查看',
         available: '可用',
         reserved: '占用',
@@ -65,7 +66,10 @@ export default {
         bookTime: '预定时间',
         to: '至',
         endTime:'结束时间',
-        startTime: '开始时间'
+        startTime: '开始时间',
+        people: '人数',
+        People: '参会人数',
+        ues:'用途'
     },
     navbar: {
         logOut: '退出登录',

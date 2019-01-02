@@ -45,6 +45,23 @@
         <el-form-item :label="$t('table.bookTime')" prop="bookTime">
           <el-date-picker v-model="temp.bookTime" :start-placeholder="$t('table.startTime')" :end-placeholder="$t('table.endTime')" :range-separator="$t('table.to')" type="datetimerange" placeholder="Please pick a date"/>
         </el-form-item>
+
+        <el-form-item :label="$t('table.People')" prop="people">
+          <el-input
+            v-model="peopleCount"
+            :placeholder="$t('table.people')"
+            suffix-icon="el-icon-edit"/>
+        </el-form-item>
+
+        <el-form-item :label="$t('table.ues')" prop="ues">
+          <el-select v-model="selected" clearable placeholder="select">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"/>
+          </el-select>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
@@ -75,6 +92,21 @@ export default {
     return {
       tableKey: 0,
       list: null,
+      peopleCount: 10,
+      selected: '',
+      options: [{
+        value: 'opt1',
+        label: 'normal'
+      }, {
+        value: 'opt2',
+        label: 'activity'
+      }, {
+        value: 'opt3',
+        label: 'talk'
+      }, {
+        value: 'opt4',
+        label: 'brain storm'
+      }],
       temp: {
         id: undefined,
         importance: 1,
