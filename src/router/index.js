@@ -52,6 +52,12 @@ export default new Router({
   routes: constantRouterMap
 })
 
+export const componentsMap = {
+  bookTable: () => import('@/views/booking/index')
+  // example_tree: () => import('@/views/tree/index'),
+  // form_index: () => import('@/views/form/index')
+}
+
 export const asyncRouterMap = [
   {
     path: '/meetingroom',
