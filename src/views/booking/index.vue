@@ -91,7 +91,15 @@ export default {
     },
     getStatus(status){
       return status === 0? 'available' : status === 1 ? 'reserved' : 'trimming'
-    }
+    },
+    handleBook() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
   }
 }
 </script>

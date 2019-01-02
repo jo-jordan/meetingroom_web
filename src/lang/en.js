@@ -48,6 +48,14 @@ export default {
         draft: 'Draft',
         delete: 'Delete',
         cancel: 'Cancel',
-        confirm: 'Confirm'
+        confirm: 'Confirm',
+        name: 'Meeting Room',
+        code: 'Code',
+        createTime: 'Create Time',
+        book: 'Book',
+        bookInfo: 'Info',
+        available: 'available',
+        reserved: 'reserved',
+        trimming: 'trimming',
     },
 }
