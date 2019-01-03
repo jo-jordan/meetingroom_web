@@ -36,7 +36,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
+      <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
     </div>
 
     <!-- dialog -->
@@ -92,6 +92,7 @@ export default {
     return {
       tableKey: 0,
       list: null,
+      total: 0,
       peopleCount: 10,
       selected: '',
       options: [{
@@ -117,6 +118,11 @@ export default {
         status: 'published'
       },
       dialogFormVisible: false,
+      listQuery: {
+        page: 1,
+        limit: 10,
+        sort: '+id'
+      },
       dialogStatus: '',
       textMap: {
         book: 'Book',
@@ -140,7 +146,7 @@ export default {
         console.log('response', response)
         console.log('response.data', response.data)
         this.list = response.data.items
-
+        this.total = response.data.total
         this.listLoading = false
       })
     },

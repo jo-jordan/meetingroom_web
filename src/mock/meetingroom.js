@@ -1,4 +1,5 @@
 import Mock from 'mockjs'
+import { param2Obj } from '@/utils'
 
 const List = []
 const count = 100
@@ -17,7 +18,14 @@ for (let i = 0; i < count; i++) {
 
 export default {
   getInfo: config => {
+    const { page = 1, limit = 20 } = param2Obj(config.url)
     console.log('config', config)
-    return { total: List.length, items: List }
+
+    const pageList = List.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+
+    return {
+      total: List.length,
+      items: pageList
+    }
   }
 }
