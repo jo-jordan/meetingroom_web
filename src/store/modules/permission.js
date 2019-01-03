@@ -37,27 +37,34 @@ import Layout from '@/views/layout/Layout'
 // }
 
 /**
- *将后台的路由表进行格式化
+ * 处理路由数据
+ * @param {*} asyncRouterMap
+ */
+function handleRouterMap(asyncRouterMap) {
+  let accessedRouters = []
+  if (asyncRouterMap) {
+    accessedRouters = convertRouter(asyncRouterMap)
+  }
+  accessedRouters.push({ path: '*', redirect: '/404', hidden: true })
+  console.log('asyncRouterMap', asyncRouterMap)
+  return accessedRouters
+}
+
+/**
+ * 递归将数据解析到router中去
  * @param {*} asyncRouterMap
  */
 function convertRouter(asyncRouterMap) {
-  const accessedRouters = []
-  console.log(asyncRouterMap)
-  if (asyncRouterMap) {
-    asyncRouterMap.forEach(item => {
-      var parent = generateRouter(item, true)
-      var children = []
-      if (item.children) {
-        item.children.forEach(child => {
-          children.push(generateRouter(child, false))
-        })
-      }
-      parent.children = children
-      accessedRouters.push(parent)
-    })
-  }
-  accessedRouters.push({ path: '*', redirect: '/404', hidden: true })
-  return accessedRouters
+  const res = []
+  asyncRouterMap.forEach(item => {
+    const parent = generateRouter(item)
+    if (item.children) {
+      parent.children = convertRouter(item.children)
+    }
+    res.push(parent)
+  })
+
+  return res
 }
 
 /**
@@ -72,9 +79,9 @@ function generateRouter(item, isParent) {
     path: item.path,
     name: item.name,
     meta: item.meta,
+    redirect: item.redirect,
     alwaysShow: isParent,
-    // component: isParent ? Layout : () => import(item.component)
-    component: isParent ? Layout : componentsMap[item.component]
+    component: item.location === 'root' ? Layout : componentsMap[item.component]
   }
   return router
 }
@@ -95,7 +102,7 @@ const permission = {
       return new Promise(resolve => {
         const { asyncRouterMap } = data
         console.log('data', data)
-        const accessedRouters = convertRouter(asyncRouterMap)
+        const accessedRouters = handleRouterMap(asyncRouterMap)
         // if (roles.includes('admin')) {
         //   accessedRouters = asyncRouterMap
         // } else {
