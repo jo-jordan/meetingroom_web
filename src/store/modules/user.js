@@ -39,9 +39,6 @@ const user = {
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
-    },
     SET_PRIS: (state, pris) => {
       state.pris = pris
     }
@@ -72,10 +69,10 @@ const user = {
           }
           const data = response.data
 
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
+          if (data.asyncRouterMap && data.asyncRouterMap.length > 0) { // 验证返回的pris是否是一个非空数组
+            commit('SET_PRIS', data.asyncRouterMap)
           } else {
-            reject('getInfo: roles must be a non-null array !')
+            reject('getInfo: pris must be a non-null array !')
           }
 
           commit('SET_NAME', data.name)

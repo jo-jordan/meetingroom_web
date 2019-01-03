@@ -11,6 +11,8 @@ const userMap = {
       {
         path: '/meetingroom',
         name: 'MeetingRoom',
+        location: 'root',
+        redirect: '/meetingroom/overview',
         meta: {
           title: 'MeetingRoom',
           icon: 'table'
@@ -19,12 +21,14 @@ const userMap = {
           {
             path: 'overview',
             component: 'bookTable',
+            location: 'end',
             name: 'Overview',
             meta: { title: 'Overview' }
           },
           {
             path: 'manage',
             component: 'bookTable',
+            location: 'end',
             name: 'Manage',
             meta: { title: 'Manage' }
           }
@@ -33,6 +37,8 @@ const userMap = {
       {
         path: '/user',
         name: 'User',
+        location: 'root',
+        redirect: '/user/book',
         meta: {
           title: 'User',
           icon: 'table'
@@ -41,6 +47,7 @@ const userMap = {
           {
             path: 'book',
             component: 'bookTable',
+            location: 'end',
             name: 'Book',
             meta: { title: 'Book' }
           }
