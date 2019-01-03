@@ -43,7 +43,7 @@ export const constantRouterMap = [
         meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
       }
     ]
-  },
+  }
 ]
 
 export default new Router({
