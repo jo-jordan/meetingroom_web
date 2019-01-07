@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getInfo(query) {
+export function getList(query) {
   return request({
     url: '/meetingroom/info/get',
     method: 'get',

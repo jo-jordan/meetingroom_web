@@ -9,9 +9,8 @@ for (let i = 0; i < count; i++) {
     Mock.mock({
       id: '@increment',
       name: Mock.Random.cword(2, 5),
-      code: Mock.Random.string(24),
-      status: '@integer(0, 2)',
-      createTime: '@datetime'
+      startTime: '@datetime',
+      endTime: '@datetime'
     })
   )
 }
