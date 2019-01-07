@@ -12,6 +12,11 @@
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
+        <el-table-column :label="$t('table.capacity')" :min-width="120" prop="capacity" sortable="custom" align="center">
+          <template slot-scope="scope">
+            <span>{{ scope.row.capacity }}</span>
+          </template>
+        </el-table-column>
         <el-table-column :label="$t('table.code')" :min-width="100" prop="code" sortable="custom" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
@@ -133,18 +138,19 @@ export default {
       callback()
     }
     const checkPeopleCount = (rule, value, callback) => {
-      const regex = /^([1-9]\d?)?$/
+      const regex = /^\d+$/
       if (!value) {
         return callback(new Error('People count is required'))
       }
-      if (!regex.test(value)) {
-        return callback(new Error('Should be in the range of 1 to 99'))
+      if (!regex.test(value) || value > this.capacity || value <= 0) {
+        return callback(new Error('Should be in the range of 1 to ' + this.capacity))
       }
       callback()
     }
     return {
       tableKey: 0,
       table2Key: 1,
+      capacity: 0,
       bookListLoading: false,
       bookInfoTotal: 0,
       bookInfoList: null,
@@ -225,7 +231,9 @@ export default {
     },
     resetTemp() {
     },
-    handleBook({ row }) {
+    handleBook(row) {
+      console.log('row', row)
+      this.capacity = row.capacity
       this.resetTemp()
       this.dialogStatus = 'book-create'
       this.dialogBooking = true
@@ -237,6 +245,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
+          console.log('this.temp', this.temp)
           createBook(this.temp).then(() => {
             this.dialogBooking = false
             this.$notify({
