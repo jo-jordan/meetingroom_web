@@ -11,7 +11,8 @@ for (let i = 0; i < count; i++) {
       name: Mock.Random.cword(2, 5),
       code: Mock.Random.string(24),
       status: '@integer(0, 2)',
-      createTime: '@datetime'
+      createTime: '@datetime',
+      capacity: '@integer(1, 999)'
     })
   )
 }
