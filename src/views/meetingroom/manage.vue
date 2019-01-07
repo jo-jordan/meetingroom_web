@@ -1,48 +1,55 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-table v-loading="listLoading" :key="tableKey" :data="list" :row-class-name="tableRowClassName" border fit highlight-current-row style="width: 100%;">
-        <el-table-column :label="$t('table.id')" :min-width="40" prop="id" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.id }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.name')" :min-width="120" prop="name" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.name }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.capacity')" :min-width="120" prop="capacity" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.capacity }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.code')" :min-width="100" prop="code" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.code }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.status')" :min-width="50" prop="status" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <el-tag v-if="scope.row.status==0" type="success">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
-            <el-tag v-if="scope.row.status==1" type="danger">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
-            <el-tag v-if="scope.row.status==2" type="info">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.createTime')" :min-width="100" prop="createTime" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.createTime }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
-          <template slot-scope="scope">
-            <el-button v-if="scope.row.status==0" size="mini" type="success" @click="handleBook(scope.row)">{{ $t('table.book') }}</el-button>
-            <el-button v-if="scope.row.status!=0" size="mini" type="primary" @click="handleInfo(scope.row)">{{ $t('table.bookInfo') }}</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+      <div class="filter-container">
+        <el-input :placeholder="$t('table.search')" v-model="listQuery.title" class="filter-item filter-item-wrapper" @keyup.enter.native="handleFilter"/>
+        <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('table.search') }}</el-button>
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('table.add') }}</el-button>
+        <el-button class="filter-item" type="danger" icon="el-icon-delete" @click="handleDeleteAttention">{{ $t('table.delete') }}</el-button>
+      </div>
     </div>
+
+    <el-table v-loading="listLoading" :key="tableKey" :data="list" :row-class-name="tableRowClassName" border fit highlight-current-row style="width: 100%;">
+      <el-table-column :label="$t('table.id')" :min-width="40" prop="id" sortable="custom" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.id }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('table.name')" :min-width="120" prop="name" sortable="custom" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('table.capacity')" :min-width="120" prop="capacity" sortable="custom" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.capacity }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('table.code')" :min-width="100" prop="code" sortable="custom" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.code }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('table.status')" :min-width="50" prop="status" sortable="custom" align="center">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status==0" type="success">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
+          <el-tag v-if="scope.row.status==1" type="danger">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
+          <el-tag v-if="scope.row.status==2" type="info">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('table.createTime')" :min-width="100" prop="createTime" sortable="custom" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.createTime }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
+        <template slot-scope="scope">
+          <el-button v-if="scope.row.status==0" size="mini" type="success" @click="handleBook(scope.row)">{{ $t('table.book') }}</el-button>
+          <el-button v-if="scope.row.status!=0" size="mini" type="primary" @click="handleInfo(scope.row)">{{ $t('table.bookInfo') }}</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <!-- dialog for book room -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogBooking">
@@ -289,5 +296,9 @@ export default {
 
   .el-table .success-row {
     background: #f0f9eb;
+  }
+
+  .filter-item-wrapper {
+    width: 200px;
   }
 </style>
