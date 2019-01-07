@@ -2,31 +2,31 @@ import request from '@/utils/request'
 
 export function getInfo(query) {
   return request({
-    url: '/meetingroom/info/get',
+    url: '/user/get',
     method: 'get',
     params: query
   })
 }
 
-export function createRoom(data) {
+export function createUser(data) {
   return request({
-    url: '/meetingroom/info/create',
+    url: '/user/create',
     method: 'post',
     data
   })
 }
 
-export function deleteRoom(data) {
+export function deleteUser(data) {
   return request({
-    url: '/meetingroom/info/delete',
+    url: '/user/delete',
     method: 'delete',
     data
   })
 }
 
-export function updateRoom(data) {
+export function updateUser(data) {
   return request({
-    url: '/meetingroom/info/update',
+    url: '/user/update',
     method: 'update',
     data
   })

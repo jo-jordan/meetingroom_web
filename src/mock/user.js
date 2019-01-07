@@ -28,17 +28,17 @@ export default {
       items: pageList
     }
   },
-  createRoom: () => {
+  createUser: () => {
     return {
       data: 'success'
     }
   },
-  deleteRoom: () => {
+  deleteUser: () => {
     return {
       data: 'success'
     }
   },
-  updateRoom: () => {
+  updateUser: () => {
     return {
       data: 'success'
     }
