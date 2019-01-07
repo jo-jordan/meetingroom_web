@@ -1,5 +1,6 @@
 /* eslint-disable */
 import Vue from 'vue'
+import Vuelidate from 'vuelidate'
 
 import Cookies from 'js-cookie'
 
@@ -39,5 +40,6 @@ const app = new Vue({
   router,
   store,
   i18n,
+  Vuelidate,
   render: h => h(App)
 })
