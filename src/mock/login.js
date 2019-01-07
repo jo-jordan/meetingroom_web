@@ -20,14 +20,14 @@ const userMap = {
         children: [
           {
             path: 'overview',
-            component: 'bookTable',
+            component: 'meetingRoomOverview',
             location: 'end',
             name: 'Overview',
             meta: { title: 'Overview' }
           },
           {
             path: 'manage',
-            component: 'bookTable',
+            component: 'meetingRoomManage',
             location: 'end',
             name: 'Manage',
             meta: { title: 'Manage' }
@@ -46,10 +46,17 @@ const userMap = {
         children: [
           {
             path: 'book',
-            component: 'bookTable',
+            component: 'bookInfoOverview',
             location: 'end',
             name: 'Book',
             meta: { title: 'Book' }
+          },
+          {
+            path: 'manage',
+            component: 'userManage',
+            location: 'end',
+            name: 'Manage',
+            meta: { title: 'Manage' }
           }
         ]
       }
