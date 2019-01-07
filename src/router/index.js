@@ -53,7 +53,10 @@ export default new Router({
 })
 
 export const componentsMap = {
-  bookTable: () => import('@/views/booking/index')
-  // example_tree: () => import('@/views/tree/index'),
-  // form_index: () => import('@/views/form/index')
+  bookTable: () => import('@/views/booking/index'),
+  meetingRoomOverview: () => import('@/views/meetingroom/overview'),
+  meetingRoomManage: () => import('@/views/meetingroom/manage'),
+
+  bookInfoOverview: () => import('@/views/user/overview'),
+  userManage: () => import('@/views/user/manage'),
 }
