@@ -53,7 +53,6 @@ export default new Router({
 })
 
 export const componentsMap = {
-  bookTable: () => import('@/views/booking/index'),
   meetingRoomOverview: () => import('@/views/meetingroom/overview'),
   meetingRoomManage: () => import('@/views/meetingroom/manage'),
 
