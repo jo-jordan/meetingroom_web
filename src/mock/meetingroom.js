@@ -5,6 +5,15 @@ const List = []
 const count = 100
 
 for (let i = 0; i < count; i++) {
+  const bookInfo = []
+  for (let j = 0; j < 4; j++) {
+    bookInfo.push({
+      id: '@increment',
+      name: Mock.Random.cword(2, 5),
+      startTime: '@datetime',
+      endTime: '@datetime'
+    })
+  }
   List.push(
     Mock.mock({
       id: '@increment',
@@ -12,7 +21,8 @@ for (let i = 0; i < count; i++) {
       code: Mock.Random.string(24),
       status: '@integer(0, 2)',
       createTime: '@datetime',
-      capacity: '@integer(1, 999)'
+      capacity: '@integer(1, 999)',
+      bookInfo: bookInfo
     })
   )
 }
