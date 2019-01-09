@@ -1,48 +1,19 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
-      <el-table v-loading="listLoading" :key="tableKey" :data="list" :row-class-name="tableRowClassName" border fit highlight-current-row style="width: 100%;">
-        <el-table-column :label="$t('table.id')" :min-width="40" prop="id" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.id }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.name')" :min-width="120" prop="name" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.name }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.capacity')" :min-width="120" prop="capacity" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.capacity }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.code')" :min-width="100" prop="code" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.code }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.status')" :min-width="50" prop="status" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <el-tag v-if="scope.row.status==0" type="success">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
-            <el-tag v-if="scope.row.status==1" type="danger">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
-            <el-tag v-if="scope.row.status==2" type="info">{{ $t('table.'+getStatus(scope.row.status)) }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.createTime')" :min-width="100" prop="createTime" sortable="custom" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.createTime }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
-          <template slot-scope="scope">
-            <el-button v-if="scope.row.status==0" size="mini" type="success" @click="handleBook(scope.row)">{{ $t('table.book') }}</el-button>
-            <el-button v-if="scope.row.status!=0" size="mini" type="primary" @click="handleInfo(scope.row)">{{ $t('table.bookInfo') }}</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-    </div>
+    <el-row :gutter="20" align="middle">
+      <el-col v-for="item in list" :span="5" :key="item.id">
+        <el-card class="box-card" body-style="{ padding: '20px', height: '50px' }">
+          <div slot="header" class="clearfix">
+            <span>{{ item.name }}</span>
+            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          </div>
+          <div v-for="bookInfoItem in item.bookInfo" :key="bookInfoItem" class="text item">
+            <span class="card-font">{{ bookInfoItem.startTime + '-' + bookInfoItem.endTime }}</span>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <!-- dialog for book room -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogBooking">
@@ -156,7 +127,7 @@ export default {
       bookInfoList: null,
       bookListQuery: {
         page: 1,
-        limit: 10,
+        limit: 8,
         sort: '+id'
       },
       listLoading: false,
@@ -164,7 +135,7 @@ export default {
       list: null,
       listQuery: {
         page: 1,
-        limit: 10,
+        limit: 56,
         sort: '+id'
       },
       options: [{
@@ -279,6 +250,39 @@ export default {
 </script>
 
 <style lang="scss">
+  .box-card {
+    height: 170px;
+  }
+  .card-font {
+    font-size: 1px;
+  }
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
   .el-table .warning-row {
     background: oldlace;
   }
