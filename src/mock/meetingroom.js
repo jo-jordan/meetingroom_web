@@ -6,20 +6,23 @@ const count = 100
 
 for (let i = 0; i < count; i++) {
   const bookInfo = []
-  for (let j = 0; j < 4; j++) {
-    bookInfo.push({
-      id: '@increment',
-      name: Mock.Random.cword(2, 5),
-      startTime: '@datetime',
-      endTime: '@datetime'
-    })
+  const status = Math.floor(Math.random() * Math.floor(3))
+  if (status === 1 || status === 2) {
+    for (let j = 0; j < 10; j++) {
+      bookInfo.push({
+        id: '@increment',
+        name: Mock.Random.cword(2, 5),
+        startTime: '@datetime',
+        endTime: '@datetime'
+      })
+    }
   }
   List.push(
     Mock.mock({
       id: '@increment',
       name: Mock.Random.cword(2, 5),
       code: Mock.Random.string(24),
-      status: '@integer(0, 2)',
+      status: status,
       createTime: '@datetime',
       capacity: '@integer(1, 999)',
       bookInfo: bookInfo

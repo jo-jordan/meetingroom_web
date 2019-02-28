@@ -1,18 +1,19 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="20" align="middle">
-      <el-col v-for="item in list" :span="5" :key="item.id">
-        <el-card class="box-card" body-style="{ padding: '20px', height: '50px' }">
+    <ul class="card-list">
+      <li v-for="item in list" :key="item.id">
+        <el-card :class="cardClass(item)" body-style="{ padding: '18px' }" shadow="hover">
           <div slot="header" class="clearfix">
             <span>{{ item.name }}</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+            <el-button v-if="item.status==0" style="float: right; padding: 3px 0" size="medium" type="text" @click="handleBook(item)">{{ $t('table.book') }}</el-button>
+            <el-button v-if="item.status!=0" style="float: right; padding: 3px 0" size="medium" type="text" @click="handleInfo(item)">{{ $t('table.bookInfo') }}</el-button>
           </div>
-          <div v-for="bookInfoItem in item.bookInfo" :key="bookInfoItem" class="text item">
-            <span class="card-font">{{ bookInfoItem.startTime + '-' + bookInfoItem.endTime }}</span>
+          <div v-if="item.bookInfo.length > 0" v-for="bookInfoItem in item.bookInfo" :key="bookInfoItem.id" class="text item">
+            <span class="card-font">{{ bookInfoItem.startTime | parseTime('{m}-{d} {h}:{i}') }} {{ ' - ' }} {{ bookInfoItem.endTime | parseTime('{m}-{d} {h}:{i}') }}</span>
           </div>
         </el-card>
-      </el-col>
-    </el-row>
+      </li>
+    </ul>
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <!-- dialog for book room -->
@@ -197,6 +198,16 @@ export default {
       }
       return ''
     },
+    cardClass(item) {
+      if (item.status === 0) {
+        return 'card-box success-row'
+      } else if (item.status === 1) {
+        return 'card-box warning-row'
+      } else if (item.status === 2) {
+        return 'card-box disabled-row'
+      }
+      return ''
+    },
     getStatus(status) {
       return status === 0 ? 'available' : status === 1 ? 'reserved' : 'trimming'
     },
@@ -250,48 +261,48 @@ export default {
 </script>
 
 <style lang="scss">
+  .card-list {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+  }
+  .card-list li {
+    float: left;
+    list-style: none;
+    width: 18%;
+    height: 240px;
+    color: #666;
+    font-size: 13px;
+    transition: color .15s linear;
+    border: 1px solid #eee;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
   .box-card {
-    height: 170px;
+    margin-bottom: 20px;
   }
   .card-font {
-    font-size: 1px;
+    font-size: 11px;
   }
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .el-col {
-    border-radius: 4px;
-    margin-bottom: 20px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
-  .el-table .warning-row {
-    background: oldlace;
+  .warning-row {
+    background: rgb(241, 162, 109);
   }
 
-  .el-table .disabled-row {
-    background: rgb(235, 234, 232);
+  .disabled-row {
+    background: rgb(151, 151, 150);
   }
 
-  .el-table .success-row {
-    background: #f0f9eb;
+  .success-row {
+    background: hsl(135, 43%, 56%);
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
   }
 </style>
